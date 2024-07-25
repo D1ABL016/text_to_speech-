@@ -1,5 +1,5 @@
 step1 : install the dependencies
-``` pip install pathlib flask flask_cors pyttsx3 ```
+``` pip install pathlib flask flask_cors pyttsx3 ```\n
 step2 : host the index.html on local server 
 step3 : start the server using 
 ```
