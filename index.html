@@ -4,56 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text and File Submission Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-            margin: 0;
-        }
-
-        .form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-container h2 {
-            margin-bottom: 20px;
-        }
-
-        .form-container textarea,
-        .form-container input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .form-container button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #007BFF;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .form-container button:hover {
-            background-color: #0056b3;
-        }
-
-        .error {
-            color: red;
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>Text and File Submission Form </title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -65,67 +17,22 @@
             <input type="file" id="fileInput" accept=".txt">
             <button type="submit">Submit</button>
         </form>
+        <div class="success" id="successMessage"></div>
+    </div>
+    <div class="player-container">
+        <h2>Music Player</h2>
+        <!-- <audio id="audioPlayer" src="temp.wav"></audio> -->
+        <div class="controls">
+            <!-- <button id="playButton">Play</button> -->
+            <button id="pauseButton">Pause</button>
+            <!-- <button id="stopButton">Stop</button> -->
+            <button id="resumeButton">Resume</button>
+            <button id="resetButton">Reset</button>
+            <!-- <button id="stopButton">Stop</button> -->
+        </div>
     </div>
 
-    <script>
-        document.getElementById('submissionForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            const text = document.getElementById('textInput').value.trim();
-            const file = document.getElementById('fileInput').files[0];
-            const errorMessage = document.getElementById('errorMessage');
-
-            // Reset the error message
-            errorMessage.textContent = '';
-
-            if (!text && !file) {
-                errorMessage.textContent = 'Please provide either text or a document.';
-                return;
-            }
-
-            // Displaying the text and file name for demonstration purposes
-            if (text && file) console.log("only enter a single tet input ");
-            else if (text) {
-                console.log('Text:', text);
-                sendDataToServer(text)
-            }
-            else if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const fileContent = e.target.result;
-                    console.log('File content:', fileContent);
-                    sendDataToServer(fileContent)
-                    // Add your logic to handle the file content here
-                };
-                reader.onerror = function (e) {
-                    errorMessage.textContent = 'Error reading file';
-                };
-                reader.readAsText(file);
-                console.log('File:', file.name);
-
-            }
-
-            function sendDataToServer(content) {
-                fetch('http://127.0.0.1:5000/play', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ text: content })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Success:', data);
-                        // Handle successful response here
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                        // Handle errors here
-                    });
-            }
-
-            // Add your form submission logic here
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
